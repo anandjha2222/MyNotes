@@ -1,0 +1,14 @@
+Delete Duplicate rows in oracle
+
+(1) using rowid
+    
+      delete from emp where rowid not in 
+      (select max(rowid) from emp group by empno);
+      
+(2 ) using corelated-subquery (self join)
+
+      delete from emp e1 where rowid not in 
+      (select max(rowid) from emp e2 where e1.empno=e2.empno)
+      
+Select Nth     
+     
