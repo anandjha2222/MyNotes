@@ -1,0 +1,238 @@
+REGULAR EXPRESSION IN JAVA(Durga Soft)  - java 4 feature
+--------------------------------------
+
+example : I want to represent mobile numbers(india based) according to some attern
+			I want to represent email id
+			
+Definition : If we want to represent a group of String objects according to a particular pattern, then we should go for REGULAR EXPRESSION.
+
+Application Area Of RegEx
+-------------------------
+
+(1) Validation
+(2) Pattern Matching Application (like in web page we press ctrl+f then search some keyword)
+(3) Lexical Ananlysis -> Syntax Analysis -> Semantic Analysis -> Intermediate Code Generation -> Code Optimization -> Target Code Generation
+	Above is the steps followed by a compiler software.
+	Lexical Analysis is also called as 'Scanning'/'Tokenization' which uses RegEx internally.
+(4) Digital Circuits
+(5) Communication Protocols (TCP, UDP)
+	
+	
+Q. How many times 'ab' is available in 'ababbaba' ?
+
+A. Available a index 0, 2 and 5
+
+	import java.util.regex.*;
+
+	class RegExDemo
+	{
+		public static void main(String[] args)
+		{
+			int count =0;
+			Pattern p = Pattern.compile("ab"); // create a Pattern object with search string
+			Matcher m = p.matcher("ababbaba"); // create a target object where we want to search our search string.
+			while(m.find()) // if anywhere search string is there.....
+			{
+				count++
+				System.out.println(m.start()+"...."+m.end()+"...."+m.group());  //.... give me that index.
+			}
+			System.out.println("Number of occurances : "+ count);
+		}
+	}
+
+
+Character Classes
+-----------------
+
+	[abc]   Either a OR b OR c
+	[^abc]  Except a, b and c
+	[a-z]   Any lower case alphabet symbol
+	[A-Z]   Any upper case alphabet symbol
+	[a-zA-Z]   any alphabet symbol
+	[0-9]   Any digit from 0 to 9
+	[a-zA-Z0-9]   Any alpha numeric symbol
+	[^a-zA-Z0-9]   Except alpha numeric symbol(special characters)
+	
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+class RegExDemo
+{
+	public static void main(String[] args)
+	{
+		Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+		Matcher m = p.matcher("a7b@z#9");
+		while(m.find())
+		{
+			System.out.println(m.start()+"..."+m.group());
+		}
+	}
+}	
+  
+
+Pre-Defined character classes:
+------------------------------
+
+	\s	Space Character
+	\S	Any character except space
+	\d	Any digit from [0-9]
+	\D	Any character except digit
+	\w	Any word character [Any alpha numeric character] [A-Za-z0-9]
+	\W	Except word character [except alpha numeric character] (special character)
+	.	Any character/symbol including special character also
+	
+
+import java.util.regex.*;
+
+class RegExDemo2
+{
+	public static void main(String[] args)
+	{
+		Pattern p = Pattern.compile("\\s");
+		Matcher m = p.matcher("a7bk@9");
+		while(m.find())
+		{
+			System.out.println(m.start()+"..."+m.group());
+		}
+	}
+}	
+
+
+Qualifiers
+-----------
+
+	We can use Qualifiers to specify number of occurances to match
+	
+		a	Exactly one a
+		a+	Atleast one a
+		a*	Any number of a's including zero number also
+		a?	Atmost one a
+
+import java.util.regex.*;
+
+class RegExDemo3
+{
+	public static void main(String[] args)
+	{
+		Pattern p = Pattern.compile("a+");
+		Matcher m = p.matcher("abaabaaab");
+		while(m.find())
+		{
+			System.out.println(m.start()+"..."+m.group());
+		}
+	}
+}	
+
+
+
+Pattern class split() method
+-----------------------------
+
+	Pattern p = Pattern.compile("\\.");  // or split("[.]")
+	String[] s = p.split("www.abc.com");
+
+String class split() method
+---------------------------
+
+String class also contains split() to split given target string according to particluar pattern.
+	
+		String s = "Durga Software Solutions";
+		String s1 = s.split("\\s");
+		for(String s2 : s1)		
+		{
+			System.out.println(s2);
+		}
+
+NOTE : Pattern class split() can take Target String as an argument where as String class split() can take Regular Expression as an argument.
+
+StringTokenizer
+---------------
+
+It is the specially designed class for tokenization activity
+This class is present in java.util package
+
+	StringTokenizer st = new StringTokenizer("Durga Software Solutions");
+	while(st.hasMoreTokens())
+	{
+		System.out.println(st.nextToken());
+	}
+
+	StringTokenizer st = new StringTokenizer("03-06-1982","-");
+	while(st.hasMoreTokens())
+	{
+		System.out.println(st.nextToken());
+	}
+
+
+Q. Write a regular expression to represent all 10 digit mobile numbers.
+
+Rules:
+	Every number should contain exactly 10 digits
+	The 1st digit should be 7 OR 8 OR 9
+	
+A.	[7-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+				OR
+		[7-9][0-9]{9}
+				OR
+		[789][0-9]{9}
+		
+	10 Digits OR 11 digits
+		If the number contains 11 digits then the first digit should be 0
+			0?[7-9][0-9]{9}
+			
+	10 Digits OR 11 Digits OR 12 Digits
+		If the number contains 12 digits then the first 2 digits should be 91
+			(0|91)?[7-9][0-9]{9}
+			
+			
+		
+Q.	Write a regular expression to represent all valid mail ids.
+	
+A.	[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+
+
+Q.	Only Gmail Ids
+
+A.	[a-zA-Z0-9][a-zA-Z0-9_.]*@gmail[.]com
+
+	
+Q.	Write a regular expression to represent all valid java language identifiers
+	Rules:
+		the allowed characters are a-z, A-Z, 0-9, # and $
+		the length of identifier should be at least 2
+		the 1st character should be lower case alphabetical symbol from a to k
+		the 2nd character should be digit divisiable by 3 (0,3,6,9)
+		
+A.	[a-k][0369][a-zA-Z0-9#$]*
+
+Q.	Regular Expression to represent all names starts with a | A
+
+A.	[aA][a-zA-Z]*
+
+Q.	Regular Expression to represent all names ends with I or L	
+		
+A.	[a-zA-Z]*[IL]
+
+Q.	Regular Expression to represent all names start with a or A and ends with I or L		
+
+A.	[aA][a-zA-Z]*[IL]
+
+Q. Write a program to check whether the given number is a valid mobile number or not
+
+	import java.util.regex.Matcher;
+	import java.util.regex.Pattern;
+	class CheckMobileNumber{
+		public static void main(String[] args)
+		{
+			Pattern p = Pattern.compile("(0|91)?[7-9][0-9]{9}");
+			Matcher m = p.matcher(args[0]);
+			if(m.find()&&m.group().equals(args[0])){
+				System.out.println("Valid mobile number");
+			}else
+			{
+				System.out.println(""Invalid mobile number);
+			}
+		}
+	}
+
+	Same fo email also.
