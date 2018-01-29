@@ -1,0 +1,308 @@
+Steps to create "FirstSpringMVCProject"
+---------------------------------------
+
+
+download latest eclipse for EE developer
+download all spring related jars and extract them all
+download commons-logging jar
+download tomcat server
+
+open eclipse and create a "dynamic web project". Also include 'web.xml' generation while creating the project
+
+copy all spring jars and commons-logging jar and paste in webContent->WEB-INF-lib folder
+
+(1) Inside web.xml
+
+put below 
+
+  <servlet>
+  	<servlet-name>spring-dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>spring-dispatcher</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+This needs to be done in any servlet based project. Spring projects are based on servlet technology.  DispatcherServlet is the front controller in spring-web-MVC 
+
+architecture. It handles all the requests coming to server.
+
+(2) create 'spring-dispatcher-servlet.xml' in webContent->WEB-INF and put below :
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<beans xmlns="http://www.springframework.org/schema/beans"
+		   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		   xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+
+	<bean name="/welcome.html" class="com.anand.helloController.HelloController" />
+
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	</beans>
+	
+In this file xsd based schema definition is mentioned on top of file.	
+BeanNameUrlHandlerMapping is the simplest handler mapping class of spring framework, whome front controller contacts to map request with it's handler.
+HelloController is the actual controller which handles the request when URL : "http://localhost:8080/FirstSpringMVCProject/welcome.html" is hit by the client.
+InternalResourceViewResolver is the simplest view resolver of spring framework, whome front controller contacts to know the jsp file as view component.
+
+(3) create a controller class in src->com.anand.helloController->HelloController.java extending AbstractController
+
+package com.anand.helloController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+
+public class HelloController extends AbstractController{
+
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView("HelloPage");
+		mv.addObject("welcomeMessage","Hi User, Welcome to first mvc app");
+		return mv;
+	}
+}
+
+(4) create HelloPage.jsp at WebContent->WEB-INF
+
+<html>
+<body>
+	<h1>Mvc Aplication Demo</h1>
+	<h2>${welcomeMessage}</h2>
+</body>
+</html>
+
+the object that we set in ModelAndView object in controller class is retrieved in this jsp page. The notation used is called 'Object Graph Notation Language'
+
+now launch your application on tomcat and hit URL : http://localhost:8080/FirstSpringMVCProject/welcome.html
+You will get output from the "FirstSpringMVCProject" project.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+There are two ways to write controller in spring mvc
+(1) Using Annotations
+(2) Without using Annotations (We have already covered in 'FirstSpringMVCProject')
+
+@Controller annotation : this Annotation marks a plain java class as a spring controller.
+Simplicity due to @Controller annotation :
+
+(1) Your controller class no need to extend any base controller (like 'AbstractController')
+(2) No need to put any bean entry in spring-dispatcher-servlet.xml file.
+	We can simply remove this : <bean name="/welcome.html" class="com.anand.helloController.HelloController" /> 
+(3) No need to put bean entry for Handler Mapping <bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />	
+	
+NOTE : But if you want to enjoy this feature you need to make below entry in spring-dispatcher-servlet.xml file.
+	<context:component-scan base-package="com.anand.helloController" />
+	
+	By this line we say spring that scan this package for all controllers (classes annotated by @Controller)
+	
+@Requestmapping(value="/welcome") Or
+@Requestmapping(value={"/welcome", "/anyOtherUrl",..}) annotation : This annotation is used over class and method to bind the incoming request to the appropriate handler
+	method of the controller.
+	
+(1) package com.anand.helloController;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class HelloController{
+
+	@RequestMapping("/welcome")
+	public ModelAndView helloWorld()
+	{
+		ModelAndView mv = new ModelAndView("HelloPage");
+		mv.addObject("msg","Hello User, This is annotation based controller");
+		return mv;
+	}
+}
+
+(2) <?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/context 
+							http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+ <context:component-scan base-package="com.anand.helloController" />
+
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix">
+		<value>/WEB-INF/</value>
+	</property>
+	<property name="suffix">
+		<value>.jsp</value>
+	</property>
+</bean>
+
+</beans>
+
+(3) <?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>FirstSpringMVCProject</display-name>
+  
+  <servlet>
+  	<servlet-name>spring-dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>spring-dispatcher</servlet-name>
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+(4) <html>
+<body>
+	<h1>Mvc Aplication Demo</h1>
+	<h2>${msg}</h2>
+</body>
+</html>
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Multi Action Controller : If a controller is handling multiple requests then in general it is called as a multi action controller.
+
+@RequestMapping annotation can be put above class as well as above method.
+
+URL formation goes like this:
+
+	Server address + port number + application context + path mentioned in web.xml + value of @RequestMapping above class +
+	value of @RequestMapping above method.
+	
+@RequestMapping(value="/welcome/{country}/{name}") : If this is written on any method then any value for 'country' and 'name' is 
+	accepted in URL. eg 'http://localhost:8080/SpringLearningProject/welcome/India/Anand'
+						'http://localhost:8080/SpringLearningProject/welcome/USA/Harsh'
+						
+NOTE : If you want to retrieve the value of variable that came with request in your handler method then have to use
+		@PathVariable annotation as method argument.
+		
+@PathVariable annotation : usage -> public ModelAndView sayHi(@PathVariable("country") String country, @PathVariable("name") String name){...}
+
+package com.anand.helloController;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+@RequestMapping(value="/welcome")
+public class HiController {
+
+	@RequestMapping(value="/{country}/{name}")
+	public ModelAndView sayHi(@PathVariable("country") String country, @PathVariable("name") String name)
+	{
+		ModelAndView mv = new ModelAndView("HiPage");
+		mv.addObject("msg","Hi "+name+" You are from "+country);
+		return mv;
+	}
+}
+
+There can be so many Path Variables, in that case it is not good to write that many @PathVariable annotations
+Rather we should write like below
+	public ModelAndView sayHi(@PathVariable Map<String, String> pathVar){..
+	
+		//how to retrieve values from map
+		String country = pathVar.get("country");
+		String name = pathVar.get("name");
+	.}
+	
+NOTE : Whenever we use Map with @PathVariable annotation, we must mention <mvc:annotation-driven /> in spring configuration file (However I tested, it is not needed)
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+We will develop a form submission work flow
+
+(1) StudentSubmissionController
+
+package com.anand.helloController;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class StudentSubmissionController {
+
+	@RequestMapping(method=RequestMethod.GET, value="/admissionForm.html")
+	public ModelAndView getAdmissionForm()
+	{
+		ModelAndView mv = new ModelAndView("AdmissionForm");
+		return mv;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/submitAdmissionForm.html")
+	public ModelAndView submitAdmissionForm(@RequestParam("studentName") String name, @RequestParam("studentHobby") String hobby)
+	{
+		ModelAndView mv = new ModelAndView("AdmissionSuccess");
+		mv.addObject("msg","Hi "+name+" your hobby is : "+hobby);
+		return mv;
+	}
+}
+
+How to keep a default value for RequestParam :
+
+public ModelAndView submitAdmissionForm(@RequestParam(value="studentName", defaultValue="Guest User") String name, @RequestParam("studentHobby") String hobby)
+
+@RequestParam("name_of_the_field_in_form") : this will capture the value of form field. Both names (in form and in RequestParam) must match
+
+If dont't want to mention so many @RequestParam in method argument :
+
+public ModelAndView submitAdmissionForm(@RequestParam Map<String, String> reqVars)
+
+(2) AdmissionForm.jsp
+
+<html>
+<body>
+	<h1>Student Admission Form</h1>
+	<form action="/SpringLearningProject/submitAdmissionForm.html", method="post">
+		<p>
+			Student Name : <input type="text" name="studentName">
+		</p>	
+		<p>
+			Student Hobby : <input type="text" name="studentHobby">
+		</p>
+		<input type="submit" value="Submit This Form">
+	</form>
+</body>
+</html>
+
+NOTE : <form action="/SpringLearningProject/submitAdmissionForm.html", method="post"> : inside 'action' context name is important
+
+(3) AdmissionSuccess.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Admission Success Page</title>
+</head>
+<body>
+	<h1>Admission Success Page</h1>
+	<h2>${msg}</h2>
+</body>
+</html>
+
