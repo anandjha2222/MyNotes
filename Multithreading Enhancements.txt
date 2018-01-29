@@ -34,7 +34,7 @@ Constructers of ThreadGroup
 (1) ThreadGroup g = new ThreadGroup(String groupName)
 
 		Creates a new thread group with the specified group name.
-		The parent of this new group is the thread group of currently executing thread.
+		The parent of this new group is the thread-group of currently executing thread.
 	
 	
 		eg : ThreadGroup g = new ThreadGroup("FirstGroup");
@@ -64,7 +64,7 @@ Important methods of ThreadGroup(c)
 2. int getMaxPriority() : returns max priority of thread-group
 3. void setMaxPriority(int p) : to set maximum priority of thread group. The default max priority is 10
 
-Note : Threads in the thread-group that already have higher priority won't be affected but for newly added threads this max priority is applicable.
+Note : Threads in the thread-group that already have higher priority won't be affected, but for newly added threads this max priority is applicable.
 
 	class ThreadGroupDemo
 	{
@@ -113,7 +113,7 @@ class ThreadGroupDemo
 	public static void main(String[] args)
 	{
 		ThreadGroup pg = new ThreadGroup("ParentGroup");
-		ThreadGroup cg = new ThreadGroup(pg,"ParentGroup");
+		ThreadGroup cg = new ThreadGroup(pg,"ChildGroup");
 		MyThread t1 = new MyThread(pg,"ChildThread1");
 		MyThread t2 = new MyThread(pg,"ChildThread2");
 		t1.start();
@@ -144,7 +144,7 @@ A.	class ThreadGroupDemo
 		}
 	}	
 
-//op 	Reference Handler..........true
+//op 		Reference Handler..........true
 		Finalizer..........true
 		Signal Dispatcher..........true
 		Attach Listener..........true
@@ -158,14 +158,12 @@ java.util.concurrent package
 The problems with traditional 'synchronized' keyword
 				
 1. We are not having any flexibility to try for a lock without waiting
-2. There is no way to specify maximum waiting time for a thread to get the lock so that thread will wait unti getting the lock which may create performance problems which may cause deadlock.
+2. There is no way to specify maximum waiting time for a thread to get the lock so that thread will wait until getting the lock which may create performance problems which may cause deadlock.
 3. If a thread releases the lock then which waiting thread will get the lock, we are not having any control on this.
-4. There is not api to list out all waiting threads for a lock.				
-5. synchronized keyword we have to use either at method level or within the method and it is not possible to use across multiple methods.
+4. There is not any api to list out all waiting threads for a lock.				
+5. We can use synchronized keyword either at method level or within the method and it is not possible to use across multiple methods.
 
 To overcome these problems sun people introduced 'java.util.concurrent.locks' package in java-1.5 version. It also provides several enhancements to the programmer to provide more control on concurrency.
-
-
 
 Lock(I)
 -------
@@ -173,11 +171,11 @@ Lock(I)
 Lock object is similar to 'implicit lock' acquired by a thread to execute synchronized method or synchronized block. Lock implementations provides more extensive operation than traditional implicit locks.
 
 important methods of Lock(I)
----------------------------
+----------------------------
 
 1. void lock() : we can use this method to acquire a lock. If lock is already available then immidiately current thread will get that lock, if the lock not already available then thread will wait untill getting the lock. This is exactly same behaviour of traditional 'synchronized' keyword.
 
-2. boolean tryLock() : to acquire the lock without waiting. If the lock is available then the thread acquires the loack and returns 'true', if th elock is not available, then this metthod returns 'false' and con continue it's execution without waiting. In this case thread never enters into waiting state.
+2. boolean tryLock() : to acquire the lock without waiting. If the lock is available then the thread acquires the loack and returns 'true', if the lock is not available, then this metthod returns 'false' and can continue it's execution without waiting. In this case thread never enters into waiting state.
 
 	if(l.tryLock())
 	{
@@ -206,35 +204,35 @@ enum TimeUnit
 	public static final java.util.concurrent.TimeUnit DAYS;
 }
 
-4. void lockInterruptibly() : acquires the lock it is available and returns immidiately. If the lock is not available then it will wait. While waiting if the thread is interrupted then thread will not get the lock.
+4. void lockInterruptibly() : acquires the lock if it is available and returns immediately. If the lock is not available then it will wait. While waiting if the thread is interrupted then thread will not get the lock.
 
-5. void unlock() : to release the lock. To call this method, current thread should be owner of the loack otherwise we will get 'IllegalMonitorStateException'.
+5. void unlock() : to release the lock. To call this method, current thread should be owner of the lock otherwise we will get 'IllegalMonitorStateException'.
 
 ReentrantLock(C) : Implementation of Lock(I)
 --------------------------------------------
 
 It is the implementation class of Lock interface and direct child class of Object.
 
-Reentrant means a thread can acquire same lock multiple times without any issue. Internally reentrant lock increments thread's personal count whenever we call lock() method and decrements counter whenever thread calls unlock() method an lock will be released whenever count reaches 0.
+Reentrant means a thread can acquire same lock multiple times without any issue. Internally ReentrantLock increments thread's personal count whenever we call lock() method and decrements counter whenever thread calls unlock() method and lock will be released whenever count reaches 0.
 
 constructors
 ------------
 
 1. ReentrantLock l = new ReentrantLock() : creates an instance of ReentrantLock
-2. ReentrantLock l = new ReentrantLock(boolean fairness) : 	creates an instance of ReentrantLock with the given fairness policy. If the fairness is 'true' then longest waiting thread can acquire the lock if lock is available, ie , it follows FCFS policy. If fairness is false then which waiting thread will get the chance we cannot expect. Default fairness value is 'false'.
+2. ReentrantLock l = new ReentrantLock(boolean fairness) : Creates an instance of ReentrantLock with the given fairness policy. If the fairness is 'true' then longest waiting thread can acquire the lock if lock is available, ie , it follows FCFS policy. If fairness is false then which waiting thread will get the chance we cannot expect. Default fairness value is 'false'.
 
-Important method of ReentrantLock
----------------------------------
+Important methods of ReentrantLock
+----------------------------------
 
-1. void loack()
+1. void lock()
 2. boolean tryLock()
 3. boolean tryLock(long l, TimeUnit t)
 4. void lockInterruptibly()
 5. void unlock()
 6. int getHoldCount() : returns number of holds on this lock by current thread
-7. boolean isHeldByCurrenThread() : returns 'true' if and only if lock is held by current thread
+7. boolean isHeldByCurrenThread() : returns 'true' if and only if the lock is held by current thread
 8. int getQueueLength() : returns number of threads waiting for the lock
-9. Collection getQueuedThreads() : returns a collection threads which are waiting to get the lock
+9. Collection getQueuedThreads() : returns a collection of threads which are waiting to get the lock
 10. boolean hasQueuedThreads() : returns true if any thread is waiting to get the lock
 11. boolean isLocked() : returns 'true' if the lock is acquired by some thread
 12. boolean isFair() : returns true if the fairness policy is set with 'true' value
@@ -263,7 +261,7 @@ Important method of ReentrantLock
 
 	
 Use of ReentrantLock in place of synchronized keyword
------------------------------------------------------
+------------------------------------------------------
 
 import java.util.concurrent.locks.*;
 class Display
@@ -397,9 +395,9 @@ class ReentrantLockDemo
 	
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-										Thread Pools (Executor Framework)
+								Thread Pools (Executor Framework)
 			
-Creating a new thread for every job may create performance and memory problems. To overcome these we should go for thread-pool. Thread pool is a pool of already created threads ready to do our job. Java 1.5 version introduced thread pool framework to implement thread-pool. Thread pool framework is also known as executor-framework.
+Creating a new thread for every job may create performance and memory problems. To overcome these we should go for thread-pool. Thread pool is a pool of already created threads ready to do our job. Java 1.5 version introduced thread pool framework to implement thread-pool. Thread pool framework is also known as Executor-Framework.
 
 We can create a thread-pool as follows :
 
@@ -455,13 +453,13 @@ class ExecutorDemo
 	
 In the above example 3 threads are responsible to execute 6 jobs so that a single thread can be reused for multiple jobs. 
 
-NOTE : While web-servers and application servers we can use thread-pool concept. 
+NOTE : While designing web-servers and application servers we can use thread-pool concept. 
 
 
 Callable and Future
 -------------------
 
-In the case of Runnable job thread wont return anything after job completion. I f a thread is required to retun some result after execution, then we should go for Callable. Callable(I) interface contains only one method 'call()'.
+In the case of Runnable job thread wont return anything after job completion. If a thread is required to retun some result after execution, then we should go for Callable. Callable(I) interface contains only one method 'call()'.
 
 	public Object call() throws Exception
 	
