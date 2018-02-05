@@ -1,0 +1,6 @@
+(1) Identification of all static members within a program from top to bottom, from parent to child
+(2) Execution of static variable assignment and static block from parent to child
+(3) Execution of main method
+(4) Identifying instance members from top to bottom
+(5) Execution of instance variables assignment and instance blocks
+(6) Execution of constructor
