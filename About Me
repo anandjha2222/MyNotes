@@ -2,14 +2,29 @@ Hi, I started my career in july 2014 from Cognizant Technology Solutions. After 
 in Metlife-Ariba project, where I worked as java developer. As part of this project I got opportunity to work on all phases of SDLC. 
 Initially, my role was to replicate the code for file generation for UpStream and DownStream systems abriba users. For example, writing 
 code for Europe with some major and/or minor changes(as per business requirement) with regards to US. This used to be a long assignment 
-for me which usually took 3 months to deploy code in Production. In this fashion I did almost 7 successful deployment. With this continuous
-tasks, being junior resource, I was taking care of day to day tasks of manual user/supervisor/group/access-assignment load in ariba system,
-as the code development was the continuous process and some very important new users were to onboarded on urgent basis. For a simple example
+for me which usually took 2-3 months to deploy code in Production. In this fashion I did almost 7 successful deployments. With this continuous
+task, being a junior resource, I was taking care of day to day tasks of manual user/supervisor/group/access-assignment load in ariba system,
+as the code development was the continuous process and some very important new users were to onboard on urgent basis. For a simple example
 - For new user on-board, I needed to create 5 csv files manually and upload in ariba with online portal. This task was a time consuming 
 task and some-times error-prone. So, I wrote excel macro to create these files based on a single key(id of new user) provided by client with
 help of GLOBAL HR CSV file. This automation drastically reduced my manual effor and correctness of load process increased for which I got
 appriciation from my On-Site manager and team. Also, I shared This macro with my team and prepared hand-over document for the same so that
 new member of the team get benefited.
-   As a result of automation I had time to work on other stuff as well, so I took part in 
-   
-   //Need to mention, which tools I used while development.
+   As a result of automation I had time to work on other stuff as well, so I took part in creating technical specification documents for
+the project and colaborated with my onsite member to learn 'how to configure approval rule chain' so that I can take ownership of that task
+as well. Apart from this I did POC for implementing SOANRQUBE for my project and discussed with manager on that. After he got convinced,
+we implemented SONARQUBE to maintain code quality.
+
+After completion of MetLife-Ariba project I got opportunity to work in congnizant-internal-team where I got chance to work on spring,
+hibernate, jsp. My team added new functionality to one-cognizant portal and also did enhancement on existing features like look-n-feel 
+response time.
+
+At Infosys I got chance to work for Investment bank (citibank) in CitiExotics project, which is basically a trade capturing system. All 
+OTC (over the counter) trades are captured in this system and for future risk analysis on indexes, involved data is gathered from different 
+market data sources. I am involved in an automation called 'MarketDataConfig' in which I developed 2 modules (gatewaymapping, currency 
+loader) and testing is goin on. As part of day to day task I need to do curve setups, new feed configuration and urgent bug fixes on 
+existing curves. I also got an opportunity to work on SOAP webservices as a result of change in connection method from http to SSL on a 
+server. As part of development I have used tools like git, bitbucket, teamcity and IBM uDeploy.
+
+Apart from my work in above projects I have handson experience on REST WS and parallely upgrading myself towards DevOps by learning CICD
+processes and jenkins.
