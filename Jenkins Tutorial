@@ -1,0 +1,11 @@
+Tilll now we have started 2 instances of jenkins
+  1. inside Tomcat (8080)
+  2. stand alone (9090)
+--ctreate a test job using link 'Please create new jobs to get started' in 8080
+--just give the name as 'TestJob1' and leave all defaults in the next page
+
+--ctreate a test job using link 'Please create new jobs to get started' in 9090
+--just give the name as 'TestJob2' and leave all defaults in the next page
+
+--restart both jenkins instances
+--Now you will see both jobs in both jenkins instances <What does this mean ?????>
