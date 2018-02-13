@@ -1,6 +1,6 @@
-Hi, I started my career in july 2014 from Cognizant Technology Solutions. After successful complition of corporate training I got deployed
-in Metlife-Ariba project, where I worked as java developer. As part of this project I got opportunity to work on all phases of SDLC. 
-Initially, my role was to replicate the code for file generation for UpStream and DownStream systems abriba users. For example, writing 
+Hi, I started my career with Cognizant Technology Solutions in 2014. After successful completion of corporate training in Advanced Java, I got deployed
+in Metlife-Ariba project, where I worked as java developer. As part of this project I got opportunity to work on almost all phases of SDLC. 
+Initially, my role was to replicate the code for file generation for UpStream and DownStream systems for abriba users. For example, writing 
 code for Europe with some major and/or minor changes(as per business requirement) with regards to US. This used to be a long assignment 
 for me which usually took 2-3 months to deploy code in Production. In this fashion I did almost 7 successful deployments. With this continuous
 task, being a junior resource, I was taking care of day to day tasks of manual user/supervisor/group/access-assignment load in ariba system,
@@ -12,19 +12,19 @@ appriciation from my On-Site manager and team. Also, I shared This macro with my
 new member of the team get benefited.
    As a result of automation I had time to work on other stuff as well, so I took part in creating technical specification documents for
 the project and colaborated with my onsite member to learn 'how to configure approval rule chain' so that I can take ownership of that task
-as well. Apart from this I did POC for implementing SOANRQUBE for my project and discussed with manager on that. After he got convinced,
+as well. Apart from this I did POC for implementing SonarQube for my project and discussed with manager on that. After he got convinced,
 we implemented SONARQUBE to maintain code quality.
 
-After completion of MetLife-Ariba project I got opportunity to work in congnizant-internal-team where I got chance to work on spring,
+After completion of MetLife-Ariba project I got opportunity to work in congnizant-internal-team(COE) where I got chance to work on spring,
 hibernate, jsp. My team added new functionality to one-cognizant portal and also did enhancement on existing features like look-n-feel 
-response time.
+response time, etc
 
-At Infosys I got chance to work for Investment bank (citibank) in CitiExotics project, which is basically a trade capturing system. All 
+After that I switched to Infosys. At Infosys I got chance to work for Investment bank (citibank) in CitiExotics project, which is basically a trade capturing system. All 
 OTC (over the counter) trades are captured in this system and for future risk analysis on indexes, involved data is gathered from different 
 market data sources. I am involved in an automation called 'MarketDataConfig' in which I developed 2 modules (gatewaymapping, currency 
-loader) and testing is goin on. As part of day to day task I need to do curve setups, new feed configuration and urgent bug fixes on 
+loader) and testing is going on. As part of day to day task I need to do curve setups, new feed configuration and urgent bug fixes on 
 existing curves. I also got an opportunity to work on SOAP webservices as a result of change in connection method from http to SSL on a 
 server. As part of development I have used tools like git, bitbucket, teamcity and IBM uDeploy.
 
-Apart from my work in above projects I have handson experience on REST WS and parallely upgrading myself towards DevOps by learning CICD
+Apart from my work in above projects I have handsome experience on REST WS and parallely upgrading myself towards DevOps by learning CICD
 processes and jenkins.
