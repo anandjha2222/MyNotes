@@ -9,3 +9,75 @@ Tilll now we have started 2 instances of jenkins
 
 --restart both jenkins instances
 --Now you will see both jobs in both jenkins instances <What does this mean ?????>
+
+
+session 3
+---------
+
+How to change Home Directory of jenkins
+---------------------------------------
+
+By default .jenkins folder is created here 'C:\Users\<user>\.jenkins'. Now we want to change this to another location.
+We want to change jenkins Home Directory because of following reasons :
+  1. To move jenkins home dir to a location that has enough disk space
+  2. project requirement
+
+--check your current home directory : this can be checked from jenkins dashboard
+--Go to manage jenkins
+--Configure system : you will see this 'Home directory	C:\Users\anand.kumar33\.jenkins' as the 1st line
+--create a new folder at desired location which will be new home dir
+--copy all data from old dir to new dir (manually)
+--change env veriable (JENKINS_HOME) and set to new dir
+  1. using control panel->set environment variable
+  2. using cmd    set JENKINS_HOME=D:\jenkins home dir
+--Restart Jenkins
+
+session 4
+---------
+
+Using CLI in jenkins
+--------------------
+
+Why use CLI when we already have UI
+
+--easire
+--faster
+--memory management(consumes less memory than UI)
+--At time of continuous integration
+
+
+--start jenkins   java -jar jenkins.war --httpPort=9090
+--manage jenkins
+--configure global security
+--enable security must be checked
+--go to http://localhost:8080/cli/ 
+--Download jenkins-cli from the same page : "To get started, download jenkins-cli.jar"
+--test the cli is working fine : goto where cli jar is 
+--java -jar jenkins-cli.jar -s http://localhost:8080/
+-- in case of issue : Go to Manage Jenkins -> Configure Global Security ->
+    Enable Security Checked
+    Authorization -> Logged-in Users can do anything -> Checked allow anonymous read access
+    Restart Jenkins and try running
+    java -jar jenkins-cls.jar -s http://localhost:8080
+
+
+
+session 5
+---------
+
+How to create users + manage + assign roles
+-------------------------------------------
+
+--how to create new user
+--how to configure user
+--how to create new roles
+--how to assign user to roles
+--how to control user access on projects
+
+
+--start jenkins
+--create new user
+--manage jenkins > manage users > create user
+--configure user : manage jenkins > manage users > configure button in front of user
+--Now we will create and manage user roles
+    Roles Strategy Plugin
