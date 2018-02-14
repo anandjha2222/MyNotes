@@ -1,3 +1,67 @@
+lecture 1
+----------
+
+-- java application
+-- platform independent
+-- used for CICD
+-- developed code checked in git, jenkins will take latest cdode and trigger the build, and build notification will be sent to
+	team members, so in case of any error, it can be resolved then and there and bug finding will not waste time.
+-- As a post build actions we can integrate tests with build in jenkins. Once the build is successful, automatically it will be tested and 
+	report will be sent back, so in case any thing unexpected happens due to new changes, it can be rectified immediately.
+-- In short, entire build and test process if followed as soon as the code is checked in the repository, hence called continuous integration
+
+
+Download jenkins
+-----------------
+
+--download war file
+--place war file anywhere
+--cmd->navigate to jenkins war file
+--java -jar jenkins.war
+--copy admin pass and keep it. (Not needed however)
+--4fab8c6681614165a1c1a780e61713c4 (This may also be found at: C:\Users\Anand\.jenkins\secrets\initialAdminPassword)
+--jenkins run on port 8080
+--jenkins comes with stand alone server
+--but we can deploy jenkins on other server as well like tomcat
+--browser : http://localhost:8080
+--give above password
+--jenkins will start
+--choose 'Select plugins to install' and spend some time identifying what all plugins are and finally install no plugins right now 
+--you can create an new admin user or you can just continue as admin. Continue as admin for now.
+--visit 'C:\Users\Anand\.jenkins' All jenkins related jobs, logs, nodes, plugins etc will be there
+
+lecture 2
+---------
+
+How to setup jenkins on tomcat
+------------------------------
+
+Jenkins comes with jetty/winstone (ie stand alone servers) then why we need to setup jenkins on Tomcat ?
+
+--we can start all our applications including jenkins at the same place ie tomcat. However this is not a necessity
+--jenkins can be installed on so many containers
+	Glassfish
+	tomcatjBoss
+	WebSphere
+	Jetty
+	Jonas
+	Weblogic
+	etc
+--java 7 or above and tomcat 5 or above is needed 
+
+--Download tomcat
+--unzip it
+--copy and place jenkins.war inside tomcat webapps folder
+--start tomcat.
+--cmd->tomcat bin dir->(make all files executable <for unix> chmod +x *.sh)
+--start tomcat : inside bin -> startup.bat
+--browser-> http://localhost:8080 (means tomcat is running)
+--now access jenkins : http://localhost:8080/jenkins
+--admin is user and password is above in the file
+--one instance of jenkins is already running inside tomcat, but we can parallely run another instance of jenkins as well but not on port 8080
+	as both tomcat and jenkins run on port 8080 by default.
+-- In this case run jenkins as below : java -jar jenkins.war --httpPort=9090
+
 Tilll now we have started 2 instances of jenkins
   1. inside Tomcat (8080)
   2. stand alone (9090)
@@ -80,4 +144,31 @@ How to create users + manage + assign roles
 --manage jenkins > manage users > create user
 --configure user : manage jenkins > manage users > configure button in front of user
 --Now we will create and manage user roles
-    Roles Strategy Plugin
+    Roles Strategy Plugin - download - restart jenkins
+    manage jenkins -> configure global security -> enable security (checked) -> Access Control -> Authorization -> Role Based Strategy
+    NOTE : login must be as admin
+ --logout from admin user and try to login as User1 , will get error : 'user1 is missing the Overall/Read permission'
+ --Now we will grant some access to User1. Login as admin for this
+ --Manage Jenkins -> manage and assign roles -> 
+      manage roles
+      assign roles
+      role strategy macros
+ --manage roles first <play around with site , will get to know>
+ --assign roles to users <play around with site , will get to know>
+ 
+ 
+ 
+ session 6
+----------
+
+Basic Configuration
+-------------------
+
+--manage jenkins -> configure system 
+--understand basic/common configurations
+
+
+
+
+
+
