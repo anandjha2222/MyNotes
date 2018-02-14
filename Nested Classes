@@ -1,0 +1,36 @@
+Static Nested Class
+-------------------
+
+>> can contain noth static nad non-static members
+>> We can access only static members of outer class inside a static nested class. 
+   We can’t access non-static members of outer class inside a static nested class.
+>> We have seen that static methods can’t be abstract but static nested classes can be abstract.
+>> Static nested class can be final.
+>> Constructors and methods of nested classes can be overloaded.
+>> Static Nested Classes can be chained. i.e Nested class may contain another nested class and that nested class may 
+   contain another nested class and so on.
+
+
+Non-Static Nested Class
+-----------------------
+
+They are 3 types of Non-Static Nested Class(i.e, Inner Classes) in java.
+
+1. Member Inner Classes
+2. Local Inner Classes
+3. Anonymous Inner classes
+
+Member Inner Classes :
+---------------------
+
+>> Member inner classes must contain only non-static members. Static members are not allowed inside member inner classes.
+>> But, here is the interesting point. You can declare a static field inside a member inner class if the field is final. And such field 
+   must be initialized at the time of declaration only. Remember, this rule is only for the fields not for the methods.
+>> Member inner class may contain any number of IIB’s but should not contain any SIB’s.
+>> We can access both static and non-static members of outer class inside a member inner class.
+>> OuterClass outer = new OuterClass();  //creating an instance of OuterClass
+   OuterClass.InnerClass inner = outer.new InnerClass();  //creating an instance of InnerClass
+>> All members of outer class are accessible inside member inner class and all members of member inner class are accessible inside the 
+   outer class irrespective of their visibility.
+>> Member inner classes can be abstract or can be final but not both.
+
