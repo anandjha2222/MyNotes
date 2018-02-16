@@ -1,7 +1,7 @@
 Thread Group
 -------------
 
-Based on functionality, we can group threads into a single unit which is called as 'thread group'. Thread Group contains a group of threads and also it can contain 'sun-thread-groups'. Advantage we get from this is : we can perform common functionality very easily on all threads that are there in the group.
+Based on functionality, we can group threads into a single unit which is called as 'thread group'. Thread Group contains a group of threads and also it can contain 'sub-thread-groups'. Advantage we get from this is : we can perform common functionality very easily on all threads that are there in the group.
 
 Every threas in java belongs to some thread-group
 
@@ -83,7 +83,7 @@ Note : Threads in the thread-group that already have higher priority won't be af
 
 4. ThreadGroup getParent() : returns parent group of current thread.
 5. void list() : it prints information about thread-group to the console.
-6. int activeCount() : returns number of active threads present inthe thread-group.
+6. int activeCount() : returns number of active threads present in the thread-group.
 7. int activeGroupCount() : returns number of active groups present in the current thread group.
 8. int enumerate(Thread[] t) : to copy all active threads of theis thread-group into provided thread array. In this case sub-thread-group threads will be also considered.
 9. int enumerate(ThreadGroup[] g) : to copy all active sub-thread-groups into thread-group array
@@ -175,7 +175,7 @@ important methods of Lock(I)
 
 1. void lock() : we can use this method to acquire a lock. If lock is already available then immidiately current thread will get that lock, if the lock not already available then thread will wait untill getting the lock. This is exactly same behaviour of traditional 'synchronized' keyword.
 
-2. boolean tryLock() : to acquire the lock without waiting. If the lock is available then the thread acquires the loack and returns 'true', if the lock is not available, then this metthod returns 'false' and can continue it's execution without waiting. In this case thread never enters into waiting state.
+2. boolean tryLock() : to acquire the lock without waiting. If the lock is available then the thread acquires the loack and returns 'true', if the lock is not available, then this method returns 'false' and can continue it's execution without waiting. In this case thread never enters into waiting state.
 
 	if(l.tryLock())
 	{
@@ -395,7 +395,7 @@ class ReentrantLockDemo
 	
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-								Thread Pools (Executor Framework)
+						Thread Pools (Executor Framework)
 			
 Creating a new thread for every job may create performance and memory problems. To overcome these we should go for thread-pool. Thread pool is a pool of already created threads ready to do our job. Java 1.5 version introduced thread pool framework to implement thread-pool. Thread pool framework is also known as Executor-Framework.
 
