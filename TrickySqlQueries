@@ -8,7 +8,20 @@ Delete Duplicate rows in oracle
 (2 ) using corelated-subquery (self join)
 
       delete from emp e1 where rowid not in 
-      (select max(rowid) from emp e2 where e1.empno=e2.empno)
-      
-Select Nth     
+      (select max(rowid) from emp e2 where e1.empno=e2.empno) 
      
+     
+Find Nth maximum salary
+
+(1) Using correlated sub-query
+
+    select name, salary from employee e1
+    where N-1 = (select count(distinct salary) from employee e2 where e2.salary>e1.salary)
+    
+(2) Using ROW_NUMBER() function
+    
+    SELECT * FROM 
+    ( SELECT e.*, ROW_NUMBER() OVER (ORDER BY salary DESC) rn FROM Employee e ) 
+    WHERE rn = N;
+    
+    
