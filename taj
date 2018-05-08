@@ -1,0 +1,73 @@
+
+
+	Properties prop = new Properties();
+	FileReader input = null;
+	try {
+		input = new FileReader("filepath.properties");
+		// load a properties file
+		prop.load(input);
+		 
+		//System.out.println(prop.getProperty("actual_output_folder"));
+		
+		File[] actual_folder = new File(prop.getProperty("actual_output_folder")).listFiles();
+		File[] expected_folder = new File(prop.getProperty("expected_output_folder")).listFiles();
+		List<File> actual_list = Arrays.asList(actual_folder);
+		List<File> expected_list = Arrays.asList(expected_folder);
+    File[] actualInnerFiles = null;
+			File[] expectedInnerFiles = null;
+			for(int i = 0; i< expected_list.size();i++)
+			{
+				expectedInnerFiles = expected_list.get(i).listFiles();
+				String expectedDirName = expected_list.get(i).getName();
+				String actualDirName = null;
+				for(File f : actual_list)
+				{
+					if(f.getName().startsWith(expectedDirName.substring(0, expectedDirName.indexOf("_")+1)))
+					{
+						actualInnerFiles = f.listFiles();
+						actualDirName = f.getName();
+					}
+				}
+				if(actualDirName!=null)
+        {
+					if(actualInnerFiles.length==expectedInnerFiles.length)
+					{
+						File errorFileFromActualDir  = null;
+						File errorFileFromExpectedDir = null;
+						File otputFileFromActualDir = null;
+						File outputFileFromExpectedDir = null;
+						
+						for(int j= 0;j<expectedInnerFiles.length;j++)
+						{
+							if(expectedInnerFiles[j].getName().startsWith("errors_"))
+								errorFileFromExpectedDir = expectedInnerFiles[j];
+							if(expectedInnerFiles[j].getName().startsWith("output_") && expectedInnerFiles[j].getName().endsWith(".csv"))
+								outputFileFromExpectedDir = expectedInnerFiles[j]; 
+						}
+						for(int k=0;k<actualInnerFiles.length;k++)
+						{
+							if(actualInnerFiles[k].getName().startsWith("errors_"))
+								errorFileFromActualDir = actualInnerFiles[k];
+							if(actualInnerFiles[k].getName().startsWith("output_") && actualInnerFiles[k].getName().endsWith(".csv"))
+								otputFileFromActualDir = actualInnerFiles[k];
+						}
+            
+						System.out.println(expectedDirName+" <---> "+actualDirName+ " <----> "+FileUtils.contentEquals(errorFileFromExpectedDir,errorFileFromActualDir));
+						System.out.println("Result of output file comparision is : "+compareOutputCSVFiles(otputFileFromActualDir, outputFileFromExpectedDir));
+					}
+					else
+					{
+						System.out.println(expectedDirName+" and "+actualDirName +" does not contain similar files");
+					}
+				}
+				else
+				{
+					System.out.println(expectedDirName+" is Not present in Actual Directory");
+				}
+			}
+	}
+	catch (IOException ex) {
+		System.out.println("Properties file is not found in the given location!!");
+			ex.printStackTrace();
+	} 
+  }
