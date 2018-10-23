@@ -13,5 +13,10 @@ eg : 8151a5f92b602b7978719c9cce98d9b39b2f7cf4
 <I want to change message of commit id 1fd38ccb5c386378006fdc9aad726b27e079afdb>
 git rebase -i 8151a5f92b602b7978719c9cce98d9b39b2f7cf4
 <this command will open a text editor which will list out all commits after this commit_id>
+c
 
+ange "pick" to "reword" first the :wq
+It will open another editor , there you can change your commit message
+Rest process will be same
 
+NOTE : commit id will be changed in this case as well
