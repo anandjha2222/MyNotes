@@ -20,3 +20,5 @@ It will open another editor , there you can change your commit message
 Rest process will be same
 
 NOTE : commit id will be changed in this case as well
+
+this worked
