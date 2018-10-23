@@ -2,3 +2,5 @@ If you want to change commit messag after push into the branch:
 
 (1) git commit --amend -m "Correct commit messsage"
 (2) git push origin --force
+
+this worked
